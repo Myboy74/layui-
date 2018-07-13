@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="layui/dist/css/layui.css">
+    <style>
+        #laypage_0 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .news-item a {
+            text-decoration: none;
+            color: #333333;
+        }
+
+        .news-item a:hover {
+            text-decoration: underline;
+            color: #6096ec;
+        }
+
+        #allNews {
+            margin-top: 30px;
+        }
+
+        .news {
+            margin: auto;
+        }
+
+        .content .news-item {
+            padding: 15px 45px;
+            padding-right: 0;
+            margin: auto 80px;
+            background-image: url('./layui/dist/images/face/0.gif');
+            background-position: left;
+            background-repeat: no-repeat;
+        }
+
+        .content .news-item.top {
+            background-image: url('./layui/dist/images/face/1.gif');
+        }
+
+        .content .news-title {
+            font-size: 20px;
+            color: #333333;
+            text-decoration: none;
+        }
+
+        .content .news-title:hover {
+            color: #1886F6;
+            text-decoration: underline;
+        }
+
+        .content .news-time {
+            float: right;
+            font-size: 10px;
+            color: #A0A0A0;
+        }
+
+        .content {
+            width: 55%;
+            max-width: 750px;
+            min-width: 750px;
+            margin: auto;
+        }
+
+        .content.wide {
+            width: 75%;
+            max-width: 980px;
+            min-width: 950px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="news">
+    <div class="content wide" id="allNews"></div>
+    <div id="newsPage"></div>
+</div>
+</body>
+</body>
+</html>
+<script src="jq.js"></script>
+<script src="layui/dist/layui.js"></script>
+<script>
+
+
+
+
+
+    var zero = 0; var five = 2;
+
+    var  arr=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"];
+
+    function s(){
+        var  html='';
+        for(var i =zero;i<five;i++){
+            console.log(zero,five);
+            console.log(arr[i]);
+            html+=`<p>${arr[i]}</p>`;
+        }
+        $("#allNews").append(html);
+    }
+    s();
+    layui.use(['laypage'], function(){
+        laypage = layui.laypage; //分页
+        laypage.render({
+            elem: 'newsPage' //分页容器的id
+            ,count:100 //总页数
+            ,skin: '#1E9FFF' //自定义选中色值
+            ,jump: function(obj, first){
+                zero = (obj.curr-1)*2;  five=zero+2;
+                if(!first){
+                    $("#allNews").html("");
+                    s();
+                }
+            }
+        });
+    });
+</script>

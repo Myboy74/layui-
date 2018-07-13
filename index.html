@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="layui/dist/css/layui.css">
+</head>
+<body>
+<div id="demo7"></div>
+<ul id="biuuu_city_list"></ul>
+<script src="layui/dist/layui.js"></script>
+<script>
+
+    // <!--你得js放在 dist/lay/fenye.js 里面-->
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+            ,layer = layui.layer;
+
+        //将一段数组分页展示
+
+        //**** data相当于就是你表单的数据，只要你吧表单的数据获取到放过来就好了，***
+        // 比如你要一行显示好几种，那么就数据写成
+        //var data=[
+        // {id:"",
+        // name:" "，
+        // title:" "},
+       // { id:"",
+        // name:" "，
+        // title:" " },
+        // ]
+        //    **这种的**
+        //测试数据
+        var data = [
+            '北京',
+            '上海',
+            '广州',
+            '深圳',
+            '杭州',
+            '长沙',
+            '合肥',
+            '宁夏',
+            '成都',
+            '西安',
+            '南昌',
+            '上饶',
+            '沈阳',
+            '济南',
+            '厦门',
+            '福州',
+            '九江',
+            '宜春',
+            '赣州',
+            '宁波',
+            '绍兴',
+            '无锡',
+            '苏州',
+            '徐州',
+            '东莞',
+            '佛山',
+            '中山',
+            '成都',
+            '武汉',
+            '青岛',
+            '天津',
+            '重庆',
+            '南京',
+            '九江',
+            '香港',
+            '澳门',
+            '台北',
+            '尚自'
+        ];
+
+        console.log("数据总数："+data.length);
+
+        //调用分页
+
+        laypage.render({
+            elem: 'demo7'
+            ,count: data.length  //数据总数
+            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']  //完整功能，不想要哪个可以试着删除看那个会消失
+            ,jump: function(obj){ //obj可以打印出分页得所有信息
+                console.log(obj);
+                console.log("页数："+obj.curr);  //curr是打印出目前在哪一页，或点第二页打印第二页
+                console.log("内定的一个数据条数："+obj.limit);  //内容是10  所以ul 里面每次打印10条数据
+                //模拟渲染
+
+                //这个是ul里面便利的城市得数据，不要可以删掉，对应的上面html里面ul标签也删掉
+                // biuuu_city_list  是ul 得id名
+                document.getElementById('biuuu_city_list').innerHTML = function(){
+                    var arr = [];
+
+                    var thisData = data.concat().splice(obj.curr*obj.limit - obj.limit,obj.limit);
+                    console.log("第"+obj.curr+"得内容为:"+thisData);
+
+                    layui.each(thisData, function(index, item){
+                        arr.push('<li>'+ item +'</li>');
+                    //    放你表单的样式html就好了
+                    });
+
+                    //最好是就10条数据只要改动就会有bug，试了好多次都不成功，所以就按每次10条显示
+                    return arr.join('');
+                }();
+
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
